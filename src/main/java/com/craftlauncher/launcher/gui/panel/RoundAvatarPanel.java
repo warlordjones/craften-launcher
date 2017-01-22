@@ -98,9 +98,8 @@ public class RoundAvatarPanel extends JPanel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		int width = getWidth() - MaterialShadow.OFFSET_LEFT - MaterialShadow.OFFSET_RIGHT;
-		if(avatarDiameter < 0) {
+		if(avatarDiameter < 0)
 			avatarDiameter = width - 10;
-		}
 
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -163,9 +162,8 @@ public class RoundAvatarPanel extends JPanel {
 							.setDuration(250, TimeUnit.MILLISECONDS).setDisposeTimingSource(true).build();
 					skinAnimator.start();
 				}
-				else {
+				else
 					repaint();
-				}
 			}
 		});
 	}

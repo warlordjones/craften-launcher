@@ -1,19 +1,18 @@
-package de.craften.craftenlauncher.logic.resources;
+package com.craftlauncher.launcher.logic.resources;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Libraries {
-    private List<LibEntry> mLiblist = new ArrayList<>();
+	private List<LibEntry> mLiblist = new ArrayList<>();
 
-    public Libraries() {
-    }
+	public Libraries() {}
 
-    public void add(LibEntry entry) {
-        mLiblist.add(entry);
-    }
+	public void add(LibEntry entry) {
+		mLiblist.add(entry);
+	}
 
-    public List<LibEntry> get() {
-        return mLiblist;
-    }
+	public List<LibEntry> get() {
+		return mLiblist;
+	}
 }

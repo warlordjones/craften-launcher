@@ -1,11 +1,4 @@
-package de.craften.craftenlauncher.logic.resources;
-
-import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+package com.craftlauncher.launcher.logic.resources;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -13,69 +6,74 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.google.gson.JsonElement;
+import com.google.gson.JsonNull;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 public class Index {
-    private static final Logger LOGGER = LogManager.getLogger(Index.class);
-    private String mPath;
-    private ArrayList<ResEntry> mList;
-    private boolean mVirtual;
+	private static final Logger LOGGER = LogManager.getLogger(Index.class);
+	private String mPath;
+	private ArrayList<ResEntry> mList;
+	private boolean mVirtual;
 
-    public Index(String path) {
-        this.mPath = path;
-        mList = new ArrayList<>();
+	public Index(String path) {
+		this.mPath = path;
+		mList = new ArrayList<>();
 
-        buildIndex();
-    }
+		buildIndex();
+	}
 
-    private void buildIndex() {
-        JsonParser parser = new JsonParser();
+	private void buildIndex() {
+		JsonParser parser = new JsonParser();
 
-        try (FileReader reader = new FileReader(mPath)) {
-            Object obj = parser.parse(reader);
+		try(FileReader reader = new FileReader(mPath)) {
+			Object obj = parser.parse(reader);
 
-            if (obj != null && !(obj instanceof JsonNull)) {
-                JsonObject jObject = (JsonObject) obj;
+			if(obj != null && !(obj instanceof JsonNull)) {
+				JsonObject jObject = (JsonObject) obj;
 
-                if (jObject.has("virtual")) {
-                    if (jObject.get("virtual").getAsString().equals("true"))
-                        setVirtual(true);
-                    else if (jObject.get("virtual").getAsString().equals("false"))
-                        setVirtual(false);
+				if(jObject.has("virtual"))
+					if(jObject.get("virtual").getAsString().equals("true"))
+						setVirtual(true);
+					else if(jObject.get("virtual").getAsString().equals("false"))
+						setVirtual(false);
 
-                }
+				if(jObject.has("objects"))
+					for(Map.Entry<String, JsonElement> entry : jObject.getAsJsonObject("objects").entrySet()) {
 
-                if (jObject.has("objects")) {
-                    for (Map.Entry<String, JsonElement> entry : jObject.getAsJsonObject("objects").entrySet()) {
+						JsonObject res = (JsonObject) entry.getValue();
 
+						ResEntry resEntry = new ResEntry();
+						resEntry.setName(entry.getKey());
+						if(res.has("hash"))
+							resEntry.setHash(res.get("hash").getAsString());
+						if(res.has("size"))
+							resEntry.setSize(res.get("size").getAsInt());
 
-                        JsonObject res = (JsonObject) entry.getValue();
+						resEntry.setVirtual(isVirtual());
 
-                        ResEntry resEntry = new ResEntry();
-                        resEntry.setName(entry.getKey());
-                        if (res.has("hash"))
-                            resEntry.setHash(res.get("hash").getAsString());
-                        if (res.has("size"))
-                            resEntry.setSize(res.get("size").getAsInt());
+						mList.add(resEntry);
+					}
+			}
+		}
+		catch(IOException e) {
+			LOGGER.warn("Could not read file", e);
+		}
+	}
 
-                        resEntry.setVirtual(isVirtual());
+	public void setVirtual(boolean virtual) {
+		this.mVirtual = virtual;
+	}
 
-                        mList.add(resEntry);
-                    }
-                }
-            }
-        } catch (IOException e) {
-            LOGGER.warn("Could not read file", e);
-        }
-    }
+	public boolean isVirtual() {
+		return mVirtual;
+	}
 
-    public void setVirtual(boolean virtual) {
-        this.mVirtual = virtual;
-    }
-
-    public boolean isVirtual() {
-        return mVirtual;
-    }
-
-    public List<ResEntry> getRes() {
-        return mList;
-    }
+	public List<ResEntry> getRes() {
+		return mList;
+	}
 }

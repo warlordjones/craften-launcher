@@ -1,4 +1,4 @@
-package de.craften.craftenlauncher.logic.vm;
+package com.craftlauncher.launcher.logic.vm;
 
 import java.awt.image.BufferedImage;
 import java.util.Observable;
@@ -14,34 +14,34 @@ import java.util.Observable;
  */
 public class SkinVM extends Observable {
 
-    private BufferedImage mSkin;
+	private BufferedImage mSkin;
 
-    /**
-     * Offers information about the download status
-     *
-     * @return True if the download is completed.
-     */
-    public boolean wasSkinDownloaded() {
-        return (mSkin != null);
-    }
+	/**
+	 * Offers information about the download status
+	 *
+	 * @return True if the download is completed.
+	 */
+	public boolean wasSkinDownloaded() {
+		return mSkin != null;
+	}
 
-    /**
-     * Method to set the downloaded skin image.
-     *
-     * @param skin has to be not null.
-     */
-    public void setSkinDownloaded(BufferedImage skin) {
-        this.mSkin = skin;
-        this.setChanged();
-        this.notifyObservers();
-    }
+	/**
+	 * Method to set the downloaded skin image.
+	 *
+	 * @param skin has to be not null.
+	 */
+	public void setSkinDownloaded(BufferedImage skin) {
+		this.mSkin = skin;
+		this.setChanged();
+		this.notifyObservers();
+	}
 
-    /**
-     * Returns the downloaded skin image.
-     *
-     * @return the downloaded skin image
-     */
-    public BufferedImage getSkin() {
-        return mSkin;
-    }
+	/**
+	 * Returns the downloaded skin image.
+	 *
+	 * @return the downloaded skin image
+	 */
+	public BufferedImage getSkin() {
+		return mSkin;
+	}
 }

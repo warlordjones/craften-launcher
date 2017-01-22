@@ -1,26 +1,27 @@
-package de.craften.craftenlauncher.logic.manager;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+package com.craftlauncher.launcher.logic.manager;
 
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class TranslationManager {
-    private static final Logger LOGGER = LogManager.getLogger(TranslationManager.class);
+	private static final Logger LOGGER = LogManager.getLogger(TranslationManager.class);
 
-    public static String getString(String phrase) {
-        String baseName = "stringsBundle";
-        try {
-            ResourceBundle bundle = ResourceBundle.getBundle(baseName);
-            return bundle.getString(phrase);
-        } catch (MissingResourceException e) {
-            LOGGER.warn("Missing translation " + baseName, e);
-            return baseName;
-        }
-    }
+	public static String getString(String phrase) {
+		String baseName = "stringsBundle";
+		try {
+			ResourceBundle bundle = ResourceBundle.getBundle(baseName);
+			return bundle.getString(phrase);
+		}
+		catch(MissingResourceException e) {
+			LOGGER.warn("Missing translation " + baseName, e);
+			return baseName;
+		}
+	}
 
-    public static String getString(String phrase, Object... args) {
-        return String.format(getString(phrase), args);
-    }
+	public static String getString(String phrase, Object... args) {
+		return String.format(getString(phrase), args);
+	}
 }

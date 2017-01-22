@@ -1,34 +1,33 @@
-package de.craften.craftenlauncher.logic.resources;
+package com.craftlauncher.launcher.logic.resources;
 
 public class Rules {
-    private String mAction;
-    private Os mOs;
+	private String mAction;
+	private Os mOs;
 
-    public Rules() {
-    }
+	public Rules() {}
 
-    public Rules(String action) {
-        setAction(action);
-    }
+	public Rules(String action) {
+		setAction(action);
+	}
 
-    public Rules(String action, Os os) {
-        setAction(action);
-        setOs(os);
-    }
+	public Rules(String action, Os os) {
+		setAction(action);
+		setOs(os);
+	}
 
-    public String getAction() {
-        return mAction;
-    }
+	public String getAction() {
+		return mAction;
+	}
 
-    public Os getOs() {
-        return mOs;
-    }
+	public Os getOs() {
+		return mOs;
+	}
 
-    public void setAction(String action) {
-        this.mAction = action;
-    }
+	public void setAction(String action) {
+		this.mAction = action;
+	}
 
-    public void setOs(Os os) {
-        this.mOs = os;
-    }
+	public void setOs(Os os) {
+		this.mOs = os;
+	}
 }
